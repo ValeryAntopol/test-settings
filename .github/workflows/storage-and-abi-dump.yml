@@ -20,8 +20,7 @@ jobs:
           token: ${{ secrets.FLUENCEBOT_RELEASE_PLEASE_PAT }}
           submodules: recursive
 
-      - name: Dump storage layout
-        if: steps.check_storage.outputs.need_update == 'true'
+      - name: Dump storage layout'
         run: |
           echo "test" >> test
 
