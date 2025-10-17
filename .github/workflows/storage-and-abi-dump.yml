@@ -22,7 +22,7 @@ jobs:
 
       - name: Dump storage layout'
         run: |
-          echo "test" >> test
+          echo "test" > test
 
       - name: Commit storage layout dump and/or ABI
         uses: stefanzweifel/git-auto-commit-action@v5
