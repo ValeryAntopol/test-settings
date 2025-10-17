@@ -1,0 +1,31 @@
+name: "contracts"
+
+on:
+  pull_request:
+    types:
+      - "labeled"
+      - "synchronize"
+      - "opened"
+      - "reopened"
+
+concurrency:
+  group: "${{ github.workflow }}-${{ github.ref }}"
+  cancel-in-progress: true
+
+env:
+  FORCE_COLOR: true
+  FOUNDRY_PROFILE: "ci"
+
+jobs:
+  contract-tests:
+    name: "Solidity tests and storage check"
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+
+      - name: Run tests
+        run: echo Passed

@@ -1,0 +1,34 @@
+name: "Storage layout dump"
+
+on:
+  push:
+    branches:
+      - "main"
+
+concurrency:
+  group: "${{ github.workflow }}-${{ github.ref }}"
+
+jobs:
+  dump-storage-layout:
+    name: "Dump storage and ABI layout"
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.FLUENCEBOT_RELEASE_PLEASE_PAT }}
+          submodules: recursive
+
+      - name: Dump storage layout
+        if: steps.check_storage.outputs.need_update == 'true'
+        run: |
+          echo "test" >> test
+
+      - name: Commit storage layout dump and/or ABI
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "Update storage layout dump and/or ABI"
+          commit_user_name: fluencebot
+          commit_user_email: devops@fluence.one
+          commit_author: fluencebot <devops@fluence.one>
